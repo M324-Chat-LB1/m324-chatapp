@@ -46,16 +46,12 @@ if (env !== 'test') {
   startServer(serverPort);
 }
 
-const waitForSocketState = (socket: WebSocket, state: never) => {
-  return new Promise(function (resolve) {
-    setTimeout(function () {
-      if (socket.readyState === state) {
-        resolve(undefined);
-      } else {
-        waitForSocketState(socket, state).then(resolve);
-      }
-    }, 5);
-  });
+const waitForSocketState = async (socket: WebSocket, state: number): Promise<void> => {
+  while (socket.readyState !== state) {
+    await new Promise((resolve) => setTimeout(resolve, 5));
+  }
 };
+
+
 
 export { startServer, waitForSocketState };
