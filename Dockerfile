@@ -2,16 +2,23 @@
 FROM node:18
 
 # Set the working directory inside the container
-WORKDIR ...
+WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the container
-COPY ...
+COPY package*.json ./
 
 # Install the dependencies
-RUN ...
+RUN npm ci
 
 # Copy the source code to the container
-COPY ...
+COPY . .
+
+# Building TypeScript
+RUN npm run build
+
+# Open Port
+EXPOSE 3000
+
 
 # Start the server when the container starts
-CMD ...
+CMD ["node", "build/index.js"]
