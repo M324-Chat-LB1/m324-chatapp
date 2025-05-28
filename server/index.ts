@@ -26,10 +26,17 @@ if (env !== 'production' && env !== 'test') {
 
 // deliver static files from the client folder like css, js, images
 app.use(express.static('client'));
+
+// healthcheck endpoint for monitoring
+app.get('/healthcheck', (req: Request, res: Response) => {
+  res.status(200).send('OK');
+});
+
 // route for the homepage
 app.get('/', (req: Request, res: Response) => {
   res.sendFile(__dirname + '/client/index.html');
 });
+
 // Initialize the websocket server
 initializeWebsocketServer(server);
 
