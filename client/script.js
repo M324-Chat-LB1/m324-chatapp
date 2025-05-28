@@ -11,6 +11,27 @@
   socket.addEventListener('message', (event) => {
     const message = JSON.parse(event.data);
     console.log('WebSocket message:', message);
+
+    function updateUserList(users) {
+      const container = document.getElementById('userList');
+      if (!container) return;
+      container.innerHTML = `<strong>Online:</strong> ${users.map(u => u.name).join(', ')}`;
+    }
+
+
+    function updateTypingIndicator(users) {
+      const el = document.getElementById('typingIndicator');
+      if (!el) return;
+
+      if (users.length === 0) {
+        el.innerText = '';
+      } else {
+        const names = users.map(u => u.name).join(', ');
+        el.innerText = `Schreibt gerade: ${names}`;
+      }
+    }
+
+
     switch (message.type) {
       case 'message':
         const messageElement = generateMessage(message, myUser);
@@ -21,9 +42,11 @@
         break;
       case 'activeUsers':
         activeUsers = message.users;
+        updateUserList(activeUsers);
         break;
       case 'typing':
         typingUsers = message.users;
+        updateTypingIndicator(typingUsers);
         break;
       default:
         break;
