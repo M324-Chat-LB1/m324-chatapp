@@ -38,7 +38,7 @@ jobs:
   deploy:
     needs: lint-build-test
     runs-on: self-hosted
-    if: github.ref == 'refs/heads/master'
+    if: github.ref_name == 'master'
 
     steps:
       - name: Checkout Repository
