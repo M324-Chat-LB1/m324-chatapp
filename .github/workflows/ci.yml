@@ -53,5 +53,8 @@ jobs:
       - name: Push Docker image
         run: docker push codechoreographer/m324-chatapp:latest
 
-      - name: Deploy to Kubernetes (simuliert)
-        run: echo "Deployment auf Kubernetes funktioniert"
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+     
