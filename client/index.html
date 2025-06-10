@@ -5,8 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LB1 Chat - M324</title>
-  <link rel="stylesheet" href="/style.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    };
+  </script>
+
+  <link rel="stylesheet" href="/style.css" />
   <script src="/utils.js"></script>
   <script src="/script.js"></script>
 </head>
@@ -55,5 +61,9 @@
     </div>
   </div>
 </div>
+<button onclick="document.documentElement.classList.toggle('dark')" class="absolute top-4 right-4 px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded">
+  Darkmode
+</button>
+
 </body>
 </html>
