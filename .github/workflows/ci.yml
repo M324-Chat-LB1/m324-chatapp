@@ -57,4 +57,15 @@ jobs:
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
-     
+
+      - name: Pull latest image and restart pod via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 192.168.32.141
+          username: runner
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "→ Pulling latest Docker image..."
+            docker pull codechoreographer/m324-chatapp:latest
+            echo "→ Restarting Kubernetes pod..."
+            kubectl delete pod -l app=chatapp
